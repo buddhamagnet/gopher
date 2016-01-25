@@ -6,9 +6,9 @@ import (
 )
 
 var matchers = make(map[string]Matcher)
-var wg sync.WaitGroup
 
 func Run(term string) {
+	var wg sync.WaitGroup
 	feeds, err := RetrieveFeeds()
 	if err != nil {
 		log.Fatal(err)
