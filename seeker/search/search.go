@@ -7,6 +7,14 @@ import (
 
 var matchers = make(map[string]Matcher)
 
+func Register(name string, matcher Matcher) {
+	if _, exists := matchers[name]; exists {
+		log.Fatalln(name, "matcher already registered")
+	}
+	log.Println(name, "matcher successfully registered")
+	matchers[name] = matcher
+}
+
 func Run(term string) {
 	var wg sync.WaitGroup
 	feeds, err := RetrieveFeeds()
