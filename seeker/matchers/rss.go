@@ -2,13 +2,14 @@ package matchers
 
 import (
 	"encoding/xml"
+	"errors"
+	"fmt"
+	"net/http"
 
 	"github.com/buddhamagnet/gia/seeker/search"
 )
 
 type (
-	// item defines the fields associated with the item tag
-	// in the rss document.
 	item struct {
 		XMLName     xml.Name `xml:"item"`
 		PubDate     string   `xml:"pubDate"`
@@ -19,8 +20,6 @@ type (
 		GeoRssPoint string   `xml:"georss:point"`
 	}
 
-	// image defines the fields associated with the image tag
-	// in the rss document.
 	image struct {
 		XMLName xml.Name `xml:"image"`
 		URL     string   `xml:"url"`
@@ -28,8 +27,6 @@ type (
 		Link    string   `xml:"link"`
 	}
 
-	// channel defines the fields associated with the channel tag
-	// in the rss document.
 	channel struct {
 		XMLName        xml.Name `xml:"channel"`
 		Title          string   `xml:"title"`
@@ -45,7 +42,6 @@ type (
 		Item           []item   `xml:"item"`
 	}
 
-	// rssDocument defines the fields associated with the rss document.
 	rssDocument struct {
 		XMLName xml.Name `xml:"rss"`
 		Channel channel  `xml:"channel"`
@@ -55,7 +51,20 @@ type (
 type rssMatcher struct{}
 
 func (m rssMatcher) retrieve(feed *search.Feed) (*rssDocument, error) {
-	return nil, nil
+	if feed.URI == "" {
+		return nil, errors.New("no feed URI provided")
+	}
+	resp, err := http.Get(feed.URI)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("HTTP error %d\n", resp.StatusCode)
+	}
+	var document rssDocument
+	err = xml.NewDecoder(resp.Body).Decode(&document)
+	return &document, err
 }
 
 func (m rssMatcher) Search(feed *search.Feed, term string) ([]*search.Result, error) {

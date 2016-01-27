@@ -7,6 +7,7 @@ func init() {
 
 type defaultMatcher struct{}
 
+// Search is the defaultMatcher Matcher implementation.
 func (m defaultMatcher) Search(feed *Feed, term string) ([]*Result, error) {
 	return nil, nil
 }

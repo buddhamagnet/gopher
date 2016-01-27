@@ -7,6 +7,7 @@ import (
 
 var matchers = make(map[string]Matcher)
 
+// Register adds a matcher value to the matcher map.
 func Register(name string, matcher Matcher) {
 	if _, exists := matchers[name]; exists {
 		log.Fatalln(name, "matcher already registered")
@@ -15,6 +16,9 @@ func Register(name string, matcher Matcher) {
 	matchers[name] = matcher
 }
 
+// Run takes a search term, pulls in the feeds and
+// fires up and synchronises the goroutines and channels
+// that process and return the search results.
 func Run(term string) {
 	var wg sync.WaitGroup
 	feeds, err := RetrieveFeeds()
