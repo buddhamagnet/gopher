@@ -4,7 +4,9 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
+	"regexp"
 
 	"github.com/buddhamagnet/gia/seeker/search"
 )
@@ -68,7 +70,22 @@ func (m rssMatcher) retrieve(feed *search.Feed) (*rssDocument, error) {
 }
 
 func (m rssMatcher) Search(feed *search.Feed, term string) ([]*search.Result, error) {
-	return nil, nil
+	var results []*search.Result
+	log.Println(feed)
+	document, err := m.retrieve(feed)
+	if err != nil {
+		return nil, err
+	}
+	for _, channelItem := range document.Channel.Item {
+		matched, err := regexp.MatchString(term, channelItem.Title)
+		if err != nil {
+			return nil, err
+		}
+		if matched {
+			results = append(results, NewResult())
+		}
+
+	}
 }
 
 func init() {
