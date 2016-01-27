@@ -82,10 +82,10 @@ func (m rssMatcher) Search(feed *search.Feed, term string) ([]*search.Result, er
 			return nil, err
 		}
 		if matched {
-			results = append(results, NewResult())
+			results = append(results, search.NewResult("title", channelItem.Title))
 		}
-
 	}
+	return nil, nil
 }
 
 func init() {
