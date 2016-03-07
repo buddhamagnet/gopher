@@ -1,0 +1,3 @@
+*.txt
+!examples/americanize/british-american.txt
+!examples/americanize/sample.txt
