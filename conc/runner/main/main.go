@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/buddhamagnet/gia/conc/runner"
+	"github.com/buddhamagnet/gopher/conc/runner"
 )
 
 const timeout = 3 * time.Second

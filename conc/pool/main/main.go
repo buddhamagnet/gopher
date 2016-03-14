@@ -8,7 +8,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/buddhamagnet/gia/conc/pool"
+	"github.com/buddhamagnet/gopher/conc/pool"
 )
 
 const (

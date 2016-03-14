@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	_ "github.com/buddhamagnet/gia/seeker/matchers"
-	"github.com/buddhamagnet/gia/seeker/search"
+	_ "github.com/buddhamagnet/gopher/seeker/matchers"
+	"github.com/buddhamagnet/gopher/seeker/search"
 )
 
 var term string

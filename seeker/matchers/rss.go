@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"regexp"
 
-	"github.com/buddhamagnet/gia/seeker/search"
+	"github.com/buddhamagnet/gopher/seeker/search"
 )
 
 type (

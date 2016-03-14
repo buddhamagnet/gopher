@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/buddhamagnet/gia/examples/stacker/stack"
+	"github.com/buddhamagnet/gopher/examples/stacker/stack"
 )
 
 func main() {

@@ -1,0 +1,1 @@
+In most other languages that use braces you get to choose where you place them. Go is different. You can thank automatic semicolon injection (without lookahead) for this behavior. Yes, Go does have semicolons.
