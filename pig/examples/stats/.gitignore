@@ -1,0 +1,5 @@
+*_gen.go
+.env
+goberry
+service/service
+report.xml
